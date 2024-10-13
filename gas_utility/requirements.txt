@@ -1,0 +1,7 @@
+# Django framework
+Django==5.1.2
+
+Crispy Forms for better form rendering
+django-crispy-forms==1.14.0
+
+#Pillow==10.0.1

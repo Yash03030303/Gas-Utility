@@ -1,0 +1,39 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gas Utility Services</title>
+    {% load static %} <!-- Keep this for potential static files usage -->
+    <!-- Removed custom static file CSS links -->
+    <!-- Example: <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+</head>
+<body>
+    <header>
+        <h1>Gas Utility Company</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'customers:submit_request' %}">Submit Request</a>
+                <a href="{% url 'customers:request_list' %}">My Requests</a>
+                <a href="{% url 'customers:account_info' %}">Account</a>
+                {% if user.has_perm('customers.change_servicerequest') %}
+                    <a href="{% url 'support:manage_requests' %}">Manage Requests</a>
+                {% endif %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <!-- <a href="{% url 'signup' %}">Sign Up</a> --> <!-- Uncomment if signup view exists -->
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Gas Utility Company</p>
+    </footer>
+</body>
+</html>

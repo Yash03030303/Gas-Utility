@@ -1,0 +1,39 @@
+<!-- support/templates/support/manage_requests.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Manage Service Requests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Submitted At</th>
+                <th>Resolved At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.id }}</td>
+                    <td>{{ request.customer.username }}</td>
+                    <td>{{ request.get_service_type_display }}</td>
+                    <td>{{ request.get_status_display }}</td>
+                    <td>{{ request.submitted_at }}</td>
+                    <td>{{ request.resolved_at|default:"-" }}</td>
+                    <td>
+                        <a href="{% url 'support:update_request_status' request.id %}">Update Status</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">No service requests found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

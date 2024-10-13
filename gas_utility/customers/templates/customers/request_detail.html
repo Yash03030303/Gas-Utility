@@ -1,0 +1,16 @@
+<!-- customers/templates/customers/request_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Service Request Details</h2>
+    <p><strong>ID:</strong> {{ request_obj.id }}</p>
+    <p><strong>Type:</strong> {{ request_obj.get_service_type_display }}</p>
+    <p><strong>Description:</strong> {{ request_obj.description }}</p>
+    <p><strong>Status:</strong> {{ request_obj.get_status_display }}</p>
+    <p><strong>Submitted At:</strong> {{ request_obj.submitted_at }}</p>
+    <p><strong>Resolved At:</strong> {{ request_obj.resolved_at|default:"-" }}</p>
+    {% if request_obj.attachment %}
+        <p><strong>Attachment:</strong> <a href="{{ request_obj.attachment.url }}">Download</a></p>
+    {% endif %}
+{% endblock %}
